@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    public ThinAir ThinAirBalloonPrefab;
+    private ThinAir _thinAirBalloon;
+    
     public GameObject windVane; //note that this references the prefab WindVane, which is not a GameObject in the Hierarchy, it is in Project > Assets > Models folder 
 
     public GameObject[,] windVaneList;  //[,0] holds wind vanes on outer ring, [,1] holds wind vanes on inner ring
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour
             windVaneList[i,1] = Instantiate(windVane, new Vector3(37 * Mathf.Sin(360f / numWindVanes * i * Mathf.Deg2Rad), 5, 33 * Mathf.Cos(360f / numWindVanes * i * Mathf.Deg2Rad)), Quaternion.identity);
             windVaneList[i,1].transform.localScale = new Vector3(5, 5, 5);
         }
+
+        _thinAirBalloon = Instantiate(ThinAirBalloonPrefab, Vector3.zero, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -67,5 +71,6 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        _thinAirBalloon.WindVelocity(windSpeed, windDirection);
     }
 }
